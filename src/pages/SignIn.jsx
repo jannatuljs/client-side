@@ -29,7 +29,7 @@ const SignIn = () => {
     const user = { email: email };
 
     
-    axios.post('http://localhost:3000/jwt', user, { withCredentials: true })
+    axios.post('https://service-review-server-o67mi8zdw-jannat678s-projects.vercel.app/jwt', user, { withCredentials: true })
       .then(res => {
         console.log(res.data);  
       })

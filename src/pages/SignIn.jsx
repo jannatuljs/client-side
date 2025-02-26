@@ -22,15 +22,21 @@ const SignIn = () => {
      console.log(email, password);
 
      signIn(email, password)
-     .then (res => {
-       
-      console.log('sign in', res.user.email)
-      const user = { email : email }
-      axios.post('service-review-server-zeta.vercel.app
-/jwt', user, {withCredentials: true})
+  .then(res => {
+    console.log('sign in', res.user.email);
+
+     
+    const user = { email: email };
+
+    
+    axios.post('http://localhost:3000/jwt', user, { withCredentials: true })
       .then(res => {
-        console.log(res.data);
+        console.log(res.data);  
       })
+      .catch(err => {
+        console.error('Error posting JWT:', err);  
+      });
+
 
       toast.success('Sign-In Successful!');
       // navigate('/')

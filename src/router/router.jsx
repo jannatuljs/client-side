@@ -17,6 +17,7 @@ import MyServices from "../pages/MyServices";
 import EditService from "../pages/EditService";
 import ErrorPage from "../pages/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
+import Update from "../pages/Update";
 
   const router = createBrowserRouter([
     {
@@ -60,6 +61,10 @@ import PrivateRoute from "./PrivateRoute";
     {
       path:"/add review",
       element:<ReviewForm/>
+    },
+    {
+     path:"/update",
+     element:<Update/>
     },
     {
       path:"/my services",

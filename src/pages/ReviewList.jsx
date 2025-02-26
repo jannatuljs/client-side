@@ -18,7 +18,7 @@ const ReviewList = () => {
     }, [])
 
     const fetchAllService = async () => {
-        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/reviews`)
+        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/reviews?limit=6`)
         setReviews(data)
     }
     console.log(reviews)

@@ -12,7 +12,7 @@ import axios from 'axios';
         const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/services`)
       setServices(data)
     }
-    console.log(services)
+    console.log(services ); 
     return (
         <div>
              <div>

@@ -4,6 +4,7 @@ import Banner from '../Banner';
 import TabCategories from '../TabCategories';
 import RecentActivity from '../RecentActivity';
 import OurTeam from '../OurTeam';
+import Category from '../Category';
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
         <Banner/>
         <TabCategories/>
         <RecentActivity/>
+        <Category/>
         <OurTeam/>
        </div>
     );

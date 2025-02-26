@@ -4,6 +4,7 @@ import auth from '../../firebase/firebase.init';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import axios from 'axios';
  
+ 
 
 
 const googleProvider = new GoogleAuthProvider();
@@ -11,6 +12,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    
 
 const createUser = (email, password) => {
     setLoading(true);
@@ -36,40 +38,39 @@ const updateUserProfile = (updateData) => {
     return updateProfile(auth.currentUser, updateData)
  }
 
- useEffect(()=>{
-    const unsubscribe =   onAuthStateChanged(auth, currentUser=>{
+ useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
         setUser(currentUser);
-    console.log('state captured', currentUser?.email)
-    if(currentUser?.email) {
-        const user = {email: currentUser.email };
+        console.log('state captured', currentUser?.email);
+        if (currentUser?.email) {
+            const user = { email: currentUser.email };
+             axios.post(`${import.meta.env.VITE_API_URL}/jwt`, user, { withCredentials: true })
+                .then(res => {
+                    console.log(res.data);
+                    setLoading(false);
+                })
+                .catch(err => {
+                    console.error(err);
+                    setLoading(false);
+                });
+        } else {
+            axios.post(`${import.meta.env.VITE_API_URL}/logout`,   {}, { withCredentials: true })
+                .then(res => {
+                    console.log('logout', res.data);
+                    setLoading(false);
+                })
+                .catch(err => {
+                    console.error(err);
+                    setLoading(false);
+                });
+        }
+    });
 
-        axios.post('service-review-server-zeta.vercel.app
-/jwt', user, {withCredentials: true})
-        .then(res => {
-            
-            console.log(res.data);
-            setLoading(false);
-        })
-    }
-    else{
-        axios.post('service-review-server-zeta.vercel.app
-/logout', {}, {
-            withCredentials:true
-        })
-        .then(res => {
-            console.log('logout', res.data);
-            setLoading(false);
-        })
-    }
-    
-    
-    
-         
-       });
-       return ()=>{
-           unsubscribe ();
-       }
-   },[]);
+    return () => {
+        unsubscribe();
+    };
+}, []);
+
 
     const authInfo = {
      user,
